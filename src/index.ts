@@ -21,6 +21,14 @@ const startServer = () => {
 };
 
 (async () => {
-  await connectDB();
-  await startServer();
+  try {
+    await connectDB();
+    // eslint-disable-next-line no-console
+    await console.log('Postgres database connected');
+    await startServer();
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.error(err);
+    throw new Error('Unable to connect to db');
+  }
 })();
